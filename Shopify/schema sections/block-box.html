@@ -1,0 +1,163 @@
+<style type="text/css">
+		.wrapper{
+			max-width: 1200px;
+			margin: 0 auto;
+            padding: 30px 0;
+		}
+		.heading_div{
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.section-heading{
+			font-family: fantasy;
+			font-size: 50px;
+			color: rgba(50, 50, 50, 0.8);
+			font-weight: 700;
+            padding: 30px 0;
+            text-align: center;
+		}
+		.content-div{
+			width: 100%;
+			clear: both;
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
+		}
+		.content-div .content-box{
+			width: 31%;
+			box-sizing: border-box;
+			box-shadow: 1px 1px 10px -1px #333;
+		}
+		.content-box .content-img-box{
+			width: 100%;
+			margin: 0 auto;
+		}
+		.content-box .content-img-box .content-img{
+			width: 100%;
+		}
+		.content-box .content{
+			width: 90%;
+			margin: 0 auto;
+			text-align: center;
+			padding: 0 0 40px 0;
+		}
+		.content .content-heading{
+			font-family: fantasy;
+			font-size: 20px;
+            padding: 10px 0;
+			color: rgba(50, 50, 50, 0.8);
+			font-weight: 500;
+		}
+		.content .content-text{
+			font-family: serif;
+			font-size: 15px;
+			line-height: 1.2;
+			font-weight: 400;
+			margin-bottom: 30px;
+            text-align: justify;
+		}
+		.content .content-btn{
+			font-family: cursive;
+			font-size: 17px;
+			padding: 10px 20px;
+			border: 0;
+			color: #FFF;
+			background: rgba(50, 50, 50, 0.8);
+			border-radius: 10px;
+			text-decoration: none;
+		}
+		.content .content-btn:hover{
+			background: #F8F100;
+            color: rgba(50, 50, 50, 0.9);
+		}
+		@media screen and (max-width: 768px) {
+			.content-div .content-box{
+				width: 45%;
+				margin: 20px auto;
+			}
+			.content-div{
+				flex-wrap: wrap;
+			}
+		}
+		@media screen and (max-width: 576px) {
+			.content-div .content-box{
+				width: 90%;
+				margin: 20px auto;
+			}
+			.content-div{
+				flex-direction: column;
+			}
+		}
+	</style>
+<div class="wrapper">
+		<div class="heading_div">
+			<h3 class="section-heading">{{ section.settings.secheading }}</h3>
+		</div>
+		<div class="content-div">
+          {% for block in section.blocks %}
+			<div class="content-box">
+				<div class="content-img-box">
+					<img class="content-img" src="{{  block.settings.WEb-image-1 |img_url:'master'}}">
+				</div>
+				<div class="content">
+					<h4 class="content-heading">{{ block.settings.contentheading }}</h4>
+					<p class="content-text">{{ block.settings.contenttext }}</p>
+					<a href="" class="content-btn">{{ block.settings.contentbtn }}</a>
+				</div>
+			</div>
+            {% endfor %}
+		</div>
+	</div>
+
+{% schema %}
+  {
+    "name": "block-box",
+    "settings": [
+      {
+           "type": "text",
+           "id": "secheading",
+           "label": "Enter section Heading"
+         }
+    ],
+     "blocks": [
+     {
+       "name": "Slide",
+       "type": "slide",
+       "settings": [
+         {
+           "type": "image_picker",
+           "id": "WEb-image-1",
+           "label": "Choose your box image"
+         },
+          {
+           "type": "text",
+           "id": "contentheading",
+           "label": "Enter content heading"
+         },
+          {
+           "type": "text",
+           "id": "contenttext",
+           "label": "Enter content text"
+         },
+          {
+           "type": "text",
+           "id": "contentbtn",
+           "label": "Enter button text"
+         }
+       ]
+     }],
+     "presets" : [
+    {
+  "name" : "block-box"
+    }
+]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

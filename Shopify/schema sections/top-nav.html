@@ -1,0 +1,238 @@
+<head>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style type="text/css">
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	body {
+		font-family: Arial, sans-serif;
+	}
+
+	.navbar{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0 20px;
+		background-color: #333;
+		color: white;
+    }
+	.logo {
+		width: 8%;
+		margin-left: 5%;
+	}
+	
+	.logo img{
+		width: 80%;
+		margin: 0 auto;
+      padding-top: 10px;
+	}
+	
+	.nav-links {
+		display: flex;
+		flex-direction: row;
+		justify-content: end;
+		width: 60%;
+        list-style:none;
+        margin-top: 5px;
+	}
+	
+	.tab-links{
+		display: none;
+        list-style-type:none;
+	}
+	.tab-links.active{
+      font-family: Arial, sans-serif;
+    }
+	.tab-links.active{
+		display: flex;
+		flex-direction: column;
+		width: 90%;
+		margin: 0 auto;
+		transition: 1.0s;
+	}
+	.nav-links a, .tab-links a{
+		color: white;
+		text-decoration: none;
+		margin: 0 10px;
+		padding: 10px;
+	}
+	
+	.tab-links a{
+		width: 100%;
+		margin: 0 auto;
+		padding: 10px 20px;
+	}
+	
+	.nav-links a:hover, .tab-links a:hover{
+		background-color: #F8F100;
+		border-radius: 5px;
+		color: #333;
+	}
+
+	.search-icon {
+		cursor: pointer;
+		width: 5%;
+		display: flex;
+		justify-content: end;
+        margin-right:3px;
+		
+	}
+
+	.fas{
+		background-color: #F8F100;
+		border-radius: 5px;
+		font-size: 20px;
+		padding: 10px;
+		cursor: pointer;
+	}
+
+	.close-icon{
+		margin-left: 1%;
+		padding: 11px;
+	}
+
+	.search-bar {
+		display: none;
+		
+	}
+
+	.search-bar input{
+		padding: 4px 8px;
+		line-height: 1.9;
+	}
+
+	.search-bar.active {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+	}
+	.fa-bars{
+		display: none;
+	}
+	@media screen and (max-width: 768px) {
+		.logo {
+			width: auto;
+			text-align: center;
+		}
+		.nav-links {
+			display: none;
+		}
+
+		.search-icon{
+			margin-left: auto;
+		}
+
+		.search-bar {
+			width: auto;
+		}
+
+		.close-icon {
+			float: right;
+			cursor: pointer;
+			margin-left: 10px;
+		}
+		.fa-bars{
+			display: block;
+		}
+	}
+    @media screen and (max-width: 576px) {
+      .search-icon{
+			margin-right: 5%;
+		}
+      .nav-2{
+    		padding: 10px 20px;
+
+    	}
+    }
+
+  </style>
+</head>
+<body>
+	<div class="top-bar">
+		<nav class="navbar">
+			<div class="logo">
+				<a href="">
+					<img src="{{section.settings.logo |img_url:'master'}}" height="auto" width="auto" loading="lazy">
+				</a>
+			</div>
+			<ul class="nav-links">
+				 {% for link in section.settings.costum-link.links %}
+                    <a href="{{ link.url }}">{{ link.title }}</a>
+                  {% endfor %}
+			</ul>
+			<div class="search-icon">
+				<i class="fas fa-search"></i>
+			</div>
+			<div class="search-bar">
+				<input type="text" placeholder="Search">
+				<i class="fas fa-times close-icon"></i>
+			</div>
+			<div class="nav-toggler">
+				<i class="fas fa-bars toggler-icon"></i>
+			</div>
+		</nav>
+		<nav class="navbar nav-2" style="paddiong:0;">
+			<div class="tab-links">
+				 {% for link in section.settings.costum-link1.links %}
+                    <a href="{{ link.url }}">{{ link.title }}</a>
+                {% endfor %}
+			</div>
+		</nav>
+	</div>
+  
+
+  <script type="text/javascript">
+  	$(document).ready(function() {
+		$(".search-icon").click(function() {
+			$(".search-bar").toggleClass("active");
+		});
+
+		$(".fa-bars").click(function() {
+			$(".tab-links").toggleClass("active");
+		});
+
+		$(".close-icon").click(function() {
+			$(".search-bar").removeClass("active");
+		});
+
+	});
+  </script>
+</body>
+{% schema %}
+  {
+    "name": "top-nav",
+    "settings": [
+       {
+           "type": "image_picker",
+           "id": "logo",
+           "label": "Place your logo image"
+         },
+      {
+            "type": "link_list",
+            "id": "costum-link",
+            "label": " Menu"
+          },
+      {
+            "type": "link_list",
+            "id": "costum-link1",
+            "label": " Menu"
+          }
+    ],
+     "presets" : [
+    {
+  "name" : "top-nav"
+    }
+]
+    
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
